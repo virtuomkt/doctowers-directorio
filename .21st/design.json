@@ -1,0 +1,394 @@
+{
+  "version": 1,
+  "project": {
+    "name": "doctowers-directorio",
+    "productType": null,
+    "stack": [
+      "react",
+      "tailwind-v4",
+      "vite"
+    ]
+  },
+  "sources": {
+    "tokens": [
+      "src/index.css"
+    ],
+    "components": [],
+    "assets": [],
+    "instructions": [
+      "CLAUDE.md"
+    ]
+  },
+  "design": {
+    "colorMode": "light",
+    "colors": {
+      "--color-teal-100": {
+        "value": "#e3f7f6",
+        "source": "src/index.css"
+      },
+      "--color-teal-300": {
+        "value": "#8fdcd8",
+        "source": "src/index.css"
+      },
+      "--color-teal-500": {
+        "value": "#10cfc9",
+        "source": "src/index.css"
+      },
+      "--color-teal-600": {
+        "value": "#0db0ab",
+        "source": "src/index.css"
+      },
+      "--color-teal-700": {
+        "value": "#0a8b87",
+        "source": "src/index.css"
+      },
+      "--color-teal-800": {
+        "value": "#087d80",
+        "source": "src/index.css"
+      },
+      "--color-teal-900": {
+        "value": "#076769",
+        "source": "src/index.css"
+      },
+      "--color-teal-550": {
+        "value": "#25c5bf",
+        "source": "src/index.css"
+      },
+      "--color-navy-900": {
+        "value": "#003245",
+        "source": "src/index.css"
+      },
+      "--color-navy-800": {
+        "value": "#0a4257",
+        "source": "src/index.css"
+      },
+      "--color-navy-700": {
+        "value": "#155066",
+        "source": "src/index.css"
+      },
+      "--color-seafoam-300": {
+        "value": "#7fa5a3",
+        "source": "src/index.css"
+      },
+      "--color-seafoam-200": {
+        "value": "#a9c4c2",
+        "source": "src/index.css"
+      },
+      "--color-ink-900": {
+        "value": "#0a1f26",
+        "source": "src/index.css"
+      },
+      "--color-ink-700": {
+        "value": "#3d5359",
+        "source": "src/index.css"
+      },
+      "--color-ink-500": {
+        "value": "#5b7178",
+        "source": "src/index.css"
+      },
+      "--color-gray-200": {
+        "value": "#e1e8ea",
+        "source": "src/index.css"
+      },
+      "--color-gray-100": {
+        "value": "#f1f5f6",
+        "source": "src/index.css"
+      },
+      "--color-primary": {
+        "value": "var(--color-navy-900)",
+        "source": "src/index.css"
+      },
+      "--color-primary-hover": {
+        "value": "var(--color-navy-800)",
+        "source": "src/index.css"
+      },
+      "--color-accent": {
+        "value": "var(--color-teal-500)",
+        "source": "src/index.css"
+      },
+      "--color-accent-soft": {
+        "value": "var(--color-teal-100)",
+        "source": "src/index.css"
+      },
+      "--color-cta": {
+        "value": "var(--color-teal-800)",
+        "source": "src/index.css"
+      },
+      "--color-cta-hover": {
+        "value": "var(--color-teal-550)",
+        "source": "src/index.css"
+      },
+      "--color-cta-hover-ink": {
+        "value": "var(--color-navy-900)",
+        "source": "src/index.css"
+      },
+      "--color-link-hover": {
+        "value": "var(--color-teal-900)",
+        "source": "src/index.css"
+      },
+      "--color-border-hover": {
+        "value": "var(--color-teal-700)",
+        "source": "src/index.css"
+      },
+      "--color-accent-ink": {
+        "value": "var(--color-navy-900)",
+        "source": "src/index.css"
+      },
+      "--color-text-strong": {
+        "value": "var(--color-ink-900)",
+        "source": "src/index.css"
+      },
+      "--color-text-base": {
+        "value": "var(--color-ink-700)",
+        "source": "src/index.css"
+      },
+      "--color-text-muted": {
+        "value": "var(--color-ink-500)",
+        "source": "src/index.css"
+      },
+      "--color-text-invert": {
+        "value": "#ffffff",
+        "source": "src/index.css"
+      },
+      "--color-background": {
+        "value": "var(--color-gray-100)",
+        "source": "src/index.css"
+      },
+      "--color-surface": {
+        "value": "#ffffff",
+        "source": "src/index.css"
+      },
+      "--color-border": {
+        "value": "var(--color-gray-200)",
+        "source": "src/index.css"
+      },
+      "--color-foreground": {
+        "value": "var(--color-text-base)",
+        "source": "src/index.css"
+      },
+      "--color-card": {
+        "value": "var(--color-surface)",
+        "source": "src/index.css"
+      },
+      "--color-card-foreground": {
+        "value": "var(--color-text-strong)",
+        "source": "src/index.css"
+      },
+      "--color-popover": {
+        "value": "var(--color-surface)",
+        "source": "src/index.css"
+      },
+      "--color-popover-foreground": {
+        "value": "var(--color-text-strong)",
+        "source": "src/index.css"
+      },
+      "--color-primary-foreground": {
+        "value": "var(--color-text-invert)",
+        "source": "src/index.css"
+      },
+      "--color-secondary": {
+        "value": "var(--color-surface)",
+        "source": "src/index.css"
+      },
+      "--color-secondary-foreground": {
+        "value": "var(--color-primary)",
+        "source": "src/index.css"
+      },
+      "--color-muted": {
+        "value": "var(--color-background)",
+        "source": "src/index.css"
+      },
+      "--color-muted-foreground": {
+        "value": "var(--color-text-muted)",
+        "source": "src/index.css"
+      },
+      "--color-accent-foreground": {
+        "value": "var(--color-accent-ink)",
+        "source": "src/index.css"
+      },
+      "--color-input": {
+        "value": "var(--color-border)",
+        "source": "src/index.css"
+      },
+      "--color-ring": {
+        "value": "var(--color-primary)",
+        "source": "src/index.css"
+      },
+      "--color-destructive": {
+        "value": "#b3261e",
+        "source": "src/index.css"
+      },
+      "--color-destructive-foreground": {
+        "value": "var(--color-text-invert)",
+        "source": "src/index.css"
+      }
+    },
+    "typography": {
+      "--font-display": {
+        "value": "\"Intrade Demo\", ui-rounded, \"SF Pro Rounded\", sans-serif",
+        "source": "src/index.css"
+      },
+      "--font-body": {
+        "value": "\"Manrope\", -apple-system, \"Segoe UI\", sans-serif",
+        "source": "src/index.css"
+      },
+      "--text-display": {
+        "value": "clamp(36px, 9vw, 64px)",
+        "source": "src/index.css"
+      },
+      "--text-display--line-height": {
+        "value": "1.08",
+        "source": "src/index.css"
+      },
+      "--text-h1": {
+        "value": "clamp(28px, 7vw, 48px)",
+        "source": "src/index.css"
+      },
+      "--text-h1--line-height": {
+        "value": "1.08",
+        "source": "src/index.css"
+      },
+      "--text-h2": {
+        "value": "28px",
+        "source": "src/index.css"
+      },
+      "--text-h2--line-height": {
+        "value": "1.2",
+        "source": "src/index.css"
+      },
+      "--text-h3": {
+        "value": "18px",
+        "source": "src/index.css"
+      },
+      "--text-h3--line-height": {
+        "value": "1.2",
+        "source": "src/index.css"
+      },
+      "--text-body-lg": {
+        "value": "18px",
+        "source": "src/index.css"
+      },
+      "--text-body-lg--line-height": {
+        "value": "1.5",
+        "source": "src/index.css"
+      },
+      "--text-body": {
+        "value": "16px",
+        "source": "src/index.css"
+      },
+      "--text-body--line-height": {
+        "value": "1.5",
+        "source": "src/index.css"
+      },
+      "--text-body-sm": {
+        "value": "14px",
+        "source": "src/index.css"
+      },
+      "--text-body-sm--line-height": {
+        "value": "1.5",
+        "source": "src/index.css"
+      },
+      "--text-label": {
+        "value": "12px",
+        "source": "src/index.css"
+      },
+      "--text-label--line-height": {
+        "value": "1.5",
+        "source": "src/index.css"
+      }
+    },
+    "spacing": {},
+    "radius": {
+      "--radius-sm": {
+        "value": "8px",
+        "source": "src/index.css"
+      },
+      "--radius-md": {
+        "value": "14px",
+        "source": "src/index.css"
+      },
+      "--radius-lg": {
+        "value": "20px",
+        "source": "src/index.css"
+      },
+      "--radius-pill": {
+        "value": "999px",
+        "source": "src/index.css"
+      },
+      "--radius": {
+        "value": "var(--radius-md)",
+        "source": "src/index.css"
+      }
+    },
+    "shadows": {
+      "--shadow-card": {
+        "value": "0 2px 8px rgb(0 50 69 / 0.06)",
+        "source": "src/index.css"
+      },
+      "--shadow-card-hover": {
+        "value": "0 8px 24px rgb(0 50 69 / 0.1)",
+        "source": "src/index.css"
+      },
+      "--shadow-lg": {
+        "value": "0 20px 48px rgb(0 50 69 / 0.16)",
+        "source": "src/index.css"
+      },
+      "--shadow-pill": {
+        "value": "0 8px 32px rgb(0 50 69 / 0.18)",
+        "source": "src/index.css"
+      }
+    },
+    "motion": {
+      "--ease-standard": {
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "source": "src/index.css"
+      },
+      "--duration-fast": {
+        "value": "120ms",
+        "source": "src/index.css"
+      },
+      "--duration-base": {
+        "value": "200ms",
+        "source": "src/index.css"
+      }
+    },
+    "density": "unknown"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [],
+    "avoid": []
+  },
+  "decisions": [],
+  "evidence": [
+    {
+      "fact": "design.colorMode:light",
+      "source": "src/index.css"
+    },
+    {
+      "fact": "design.tokens",
+      "source": "src/index.css"
+    },
+    {
+      "fact": "project.instructions",
+      "source": "CLAUDE.md"
+    },
+    {
+      "fact": "project.stack:react",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:tailwind-v4",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:vite",
+      "source": "package.json"
+    }
+  ],
+  "generatedAt": "2026-08-13T00:38:00.107Z"
+}

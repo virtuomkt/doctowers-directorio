@@ -1,0 +1,1 @@
+../../viri/reports/2026-08-03-doctowers-mvp-directorio-stack.md

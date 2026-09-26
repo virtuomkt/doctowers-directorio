@@ -1,0 +1,3 @@
+# Los 200 medicos son ficticios. Este sitio no se indexa.
+User-agent: *
+Disallow: /

@@ -1,0 +1,1 @@
+../../../Wikis/virtuo-wiki/wiki/interno/equipo.md

@@ -1,0 +1,35 @@
+.DS_Store
+node_modules/
+dist/
+tsconfig.tsbuildinfo
+
+# Binarios pesados del design system de Claude Design.
+#
+# El zip son 19 MB y adentro viene todo otra vez; el PNG del hero son 8.9 MB y
+# esta duplicado en assets/ y en uploads/. Git guarda los binarios para siempre,
+# asi que meterlos aqui infla el repo de por vida por archivos que se pueden
+# volver a bajar del proyecto de Claude Design cuando se necesiten.
+#
+# Lo que SI se versiona de esa carpeta es lo que vale y pesa poco: los tokens,
+# los componentes, las guidelines, el readme, los logos SVG y la fuente .ttf.
+# Y la version del hero que el sitio de verdad usa vive en
+# public/img/hero-background.jpg, optimizada a 533 KB.
+design-system/claude-design/*.zip
+design-system/claude-design/uploads/
+design-system/claude-design/assets/images/
+.env
+.env.*
+
+# Ajustes locales de Claude Code, propios de cada máquina
+.claude/settings.local.json
+
+# Basura de Finder
+**/.DS_Store
+
+# Configuracion del editor Obsidian, no del proyecto.
+.obsidian/
+.vercel
+
+# Export crudo del Directorio General de DocTowers: trae telefonos y correos de
+# arrendatarios que no se publican. Solo sale del repo lo que filtra importar.mjs.
+datos/crudo/

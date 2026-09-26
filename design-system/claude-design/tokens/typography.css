@@ -1,0 +1,26 @@
+@font-face{font-family:"Intrade Demo";src:url("../assets/fonts/IntradeDemo-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:"Manrope";src:url("https://fonts.gstatic.com/s/manrope/v15/xn7gYHE41ni1AdIRqAuZuw1Bx9mbZk8f.woff2") format("woff2");font-weight:200 800;font-style:normal;font-display:swap;}
+:root{
+--font-display:"Intrade Demo",ui-rounded,"SF Pro Rounded",sans-serif;
+--font-body:"Manrope",-apple-system,"Segoe UI",sans-serif;
+
+--text-display-xl:64px;
+--text-display-lg:48px;
+--text-display-md:36px;
+--text-heading-lg:28px;
+--text-heading-md:22px;
+--text-heading-sm:18px;
+--text-body-lg:18px;
+--text-body-md:16px;
+--text-body-sm:14px;
+--text-caption:12px;
+
+--leading-display:1.08;
+--leading-heading:1.2;
+--leading-body:1.5;
+
+--weight-regular:400;
+--weight-medium:500;
+--weight-semibold:600;
+--weight-bold:700;
+}

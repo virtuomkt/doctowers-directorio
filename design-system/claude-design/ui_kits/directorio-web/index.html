@@ -1,0 +1,75 @@
+<!-- @dsCard group="Directorio Web" viewport="1440x820" name="Directorio Web" subtitle="Home + directory recreation" -->
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>*{margin:0;box-sizing:border-box}body{font-family:var(--font-body);color:var(--color-text-primary)}#root{width:1440px}</style>
+<div id="root"></div>
+<script type="text/babel">
+const {Button,Badge,AvatarGroup,SearchInput,DoctorCard}=window.DocTowersDesignSystem_80a2e3;
+
+const DOCTORS=[
+{name:"Dra. Ana Ruiz",specialty:"Cardiología",office:"Torre A · Piso 4",available:true},
+{name:"Dr. Luis Vega",specialty:"Traumatología",office:"Torre A · Piso 7",available:false},
+{name:"Dra. Sofía León",specialty:"Pediatría",office:"Torre B · Piso 2",available:true},
+{name:"Dr. Marco Díaz",specialty:"Dermatología",office:"Torre A · Piso 5",available:true},
+{name:"Dra. Paula Ortiz",specialty:"Ginecología",office:"Torre B · Piso 3",available:true},
+{name:"Dr. Iván Cruz",specialty:"Oftalmología",office:"Torre A · Piso 6",available:false},
+];
+
+function Header({dark}){
+return (
+<div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"28px 64px"}}>
+<div style={{display:"flex",alignItems:"center",gap:16}}>
+<img src="../../assets/logos/doctowers-logo-white-teal.svg" style={{height:24,display:dark?"block":"none"}}/>
+<img src="../../assets/logos/doctowers-logo-black-teal.svg" style={{height:24,display:dark?"none":"block"}}/>
+<div style={{width:1,height:20,background:dark?"rgba(255,255,255,.4)":"var(--color-border)"}}/>
+<span style={{fontSize:14,color:dark?"#fff":"var(--ink-500)"}}>Boca del Río</span>
+</div>
+<div style={{display:"flex",gap:12}}>
+<Button variant="dark" size="sm">Consultorios disponibles</Button>
+<Button variant="primary" size="sm">Directorio ›</Button>
+</div>
+</div>);
+}
+
+function Hero({query,setQuery,onSearch}){
+return (
+<div style={{background:"var(--gradient-hero)",backgroundImage:`var(--gradient-hero), url(../../assets/images/hero-background.png)`,backgroundSize:"cover",backgroundBlendMode:"soft-light",position:"relative",overflow:"hidden"}}>
+<Header dark/>
+<div style={{padding:"40px 0 90px",display:"flex",flexDirection:"column",alignItems:"center",gap:36}}>
+<h1 style={{fontFamily:"var(--font-display)",fontSize:56,color:"#fff",textAlign:"center",margin:0,lineHeight:1.1,maxWidth:820}}>Encuentra a tu médico en DocTowers</h1>
+<SearchInput value={query} onChange={setQuery} onSubmit={onSearch}/>
+</div>
+<div style={{display:"flex",justifyContent:"center",transform:"translateY(-28px)"}}>
+<div style={{background:"#fff",borderRadius:"var(--radius-pill)",boxShadow:"var(--shadow-lg)",padding:"10px 24px 10px 10px",display:"flex",alignItems:"center",gap:14}}>
+<AvatarGroup avatars={[{name:"Ana Ruiz"},{name:"Luis Vega"},{name:"Sofía León"},{name:"Marco Díaz"}]} max={4}/>
+<span style={{fontFamily:"var(--font-display)",fontSize:15,color:"var(--navy-900)"}}>+200 especialistas confían en <b>DocTowers</b></span>
+</div>
+</div>
+</div>);
+}
+
+function Directory({query}){
+const filtered=DOCTORS.filter(d=>(d.name+d.specialty).toLowerCase().includes(query.toLowerCase()));
+return (
+<div style={{padding:"70px 64px 90px",background:"#fff"}}>
+<h2 style={{fontFamily:"var(--font-display)",fontSize:32,color:"var(--navy-900)",marginBottom:8}}>Directorio médico</h2>
+<p style={{color:"var(--ink-500)",marginTop:0,marginBottom:36}}>{filtered.length} especialistas encontrados</p>
+<div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:20}}>
+{filtered.map((d,i)=><DoctorCard key={i} {...d}/>)}
+</div>
+</div>);
+}
+
+function App(){
+const [query,setQuery]=React.useState("");
+const [submitted,setSubmitted]=React.useState("");
+return (<React.Fragment>
+<Hero query={query} setQuery={setQuery} onSearch={setSubmitted}/>
+<Directory query={submitted}/>
+</React.Fragment>);
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>

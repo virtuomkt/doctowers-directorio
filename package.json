@@ -1,0 +1,29 @@
+{
+  "name": "doctowers-directorio",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build && cp dist/index.html dist/404.html",
+    "preview": "vite preview",
+    "datos": "node datos/importar.mjs",
+    "contraste": "node scripts/contraste.mjs",
+    "21st:contexto": "npx -y @21st-dev/cli@latest init --design-context --refresh"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.0",
+    "vite": "^8.2.1"
+  }
+}

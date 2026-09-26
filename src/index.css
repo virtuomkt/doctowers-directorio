@@ -1,0 +1,628 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   TOKENS — derivados del design system de Claude Design.
+
+   Fuente: design-system/claude-design/tokens/*.css
+   Aqui no se inventa ningun valor: cada uno sale de ahi. Si algo tiene que
+   cambiar, se cambia en el sistema y se vuelve a bajar, no se parcha aqui.
+
+   Los nombres de la izquierda son los nuestros (`--color-primary`) y los de la
+   derecha los suyos, anotados en el comentario, para que se pueda rastrear un
+   color de una vista hasta su token de origen.
+
+   DECISION DEL 8-AGO, contraste: el teal de marca (#10CFC9) da **1.95:1**
+   contra blanco, muy por debajo del 4.5 que el proyecto exige en todo texto.
+   No es un color de texto: es un color de fondo. Asi que las acciones y los
+   links usan **navy** (13.62:1) y el teal se queda de acento, que es la
+   variante "dark" que el propio Button del sistema ya trae. Cero tokens
+   inventados. Se verifica con `npm run contraste`.
+
+   Los nombres van en ingles porque caen tal cual en Tailwind: el token
+   `--color-primary` se usa como `bg-primary`, `text-primary`, `border-primary`.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* Intrade es la display de marca. La version con licencia entro el 14-ago y
+   reemplaza a la de prueba, que se habia sacado el 13-ago por no poder escribir
+   en espanol. Medido otra vez antes de conectarla, leyendo su tabla de
+   caracteres, no confiando en que "con licencia" quisiera decir "completa":
+
+     glifos mapeados       229   (la de prueba traia 55)
+     a-z y A-Z             completas
+     digitos 0-9           completos
+     vocales acentuadas    completas, minuscula y mayuscula
+     ñ Ñ  ü Ü  ¿ ¡         completos
+     m² y comillas “ ”     completos
+
+   Se probaron ademas los titulos reales del sitio, uno por uno, incluidos
+   "Encuentra a tu médico en DocTowers", "Área comercial" y "2,000 m² de
+   hospital". Todos pasan.
+
+   EL PESO VA EN 700 Y EL ARCHIVO ES REGULAR, a proposito. La familia trae un
+   solo corte y el archivo declara `usWeightClass 400`, pero las doce vistas que
+   usan la display piden `font-bold` sin excepcion. Si se declarara en 400, el
+   navegador fabricaria una negrita sintetica, que en una display se ve untada:
+   ese fue el tercer defecto que documentamos el 13-ago y no lo arregla la
+   licencia. Declarandola en 700, el peso que se pide es el que existe y el
+   navegador dibuja el archivo tal como esta trazado, sin inventar nada.
+
+   Y no rompe el caso contrario: hoy `font-display` nunca aparece sin
+   `font-bold`, y si algun dia apareciera, el navegador toma el corte mas
+   cercano. Los navegadores no fabrican pesos mas delgados. */
+@font-face {
+  font-family: "Intrade";
+  src:
+    url("/fonts/Intrade-Regular.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Manrope no venia en el zip: el sistema la referenciaba desde Google Fonts.
+   Bajada el 8-ago y servida desde el proyecto, para que el sitio no dependa de
+   una peticion a gstatic el dia de la junta.
+
+   Va en dos cortes con su `unicode-range`, que es como los sirve Google: para
+   un sitio en espanol el navegador solo baja `latin` (24 KB) y nunca pide
+   `latin-ext`, que existe por si algun nombre trae un caracter fuera de rango.
+   Es la variable completa, de peso 200 a 800. */
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/Manrope-latin.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/Manrope-latin-ext.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@theme {
+  /* Escala cruda de marca ---------------------------------------------------
+     Copiada tal cual de tokens/colors.css. No se usa directo en las vistas:
+     las vistas usan los semanticos de abajo. */
+  --color-teal-100: #e3f7f6;
+  --color-teal-300: #8fdcd8;
+  --color-teal-500: #10cfc9;
+  --color-teal-600: #0db0ab;
+  --color-teal-700: #0a8b87;
+  /* Escalon agregado el 10-ago. El mockup del nav pide un boton teal con texto
+     blanco encima, y ninguno de los de arriba aguanta: teal-600 da 2.55:1 y
+     teal-700 da 3.95:1, los dos debajo del 4.5 que el proyecto exige. Este es
+     el mismo tono bajado de luz hasta que pasa: 4.69:1 con #f9f9f9. */
+  --color-teal-800: #087d80;
+  --color-teal-900: #076769;
+  /* El teal de marca que Valeria pidio el 12-ago para los hover. Cae entre
+     teal-500 y teal-600 por luminancia, de ahi el nombre.
+
+     Con texto blanco encima da 2.14:1, muy por debajo del 4.5. Con navy da
+     6.37:1. Por eso el hover de los CTA no solo cambia el fondo: tambien
+     voltea la tinta a navy. Si se dejara el texto blanco, cada boton del sitio
+     dejaria de pasar AA justo mientras el usuario lo esta apuntando. */
+  --color-teal-550: #25c5bf;
+  --color-navy-900: #003245;
+  --color-navy-800: #0a4257;
+  --color-navy-700: #155066;
+  --color-seafoam-300: #7fa5a3;
+  --color-seafoam-200: #a9c4c2;
+  --color-ink-900: #0a1f26;
+  --color-ink-700: #3d5359;
+  --color-ink-500: #5b7178;
+  --color-gray-200: #e1e8ea;
+  /* Cambiado el 13-ago de #f1f5f6 a #f9f9f9, que es el que trae el archivo de
+     Figma. El anterior tenia un tinte azul verdoso heredado de la paleta; este
+     es gris neutro y un punto mas claro. Sube el contraste de todo lo que va
+     encima, asi que ningun par se rompe: solo mejoran. */
+  --color-gray-100: #f9f9f9;
+
+  /* Semanticos --------------------------------------------------------------
+     Lo que las vistas usan. Todo texto pasa AA (4.5:1) sobre su fondo. */
+
+  /* Acciones y links. Navy, no teal, por la decision de contraste de arriba. */
+  --color-primary: var(--color-navy-900);
+  --color-primary-hover: var(--color-navy-800);
+
+  /* El teal de marca. Fondo y acento, NUNCA texto sobre claro.
+     Donde si brilla es sobre el navy del hero: ahi da 7:1. */
+  --color-accent: var(--color-teal-500);
+  --color-accent-soft: var(--color-teal-100);
+
+  /* La accion del nav. Es el unico boton del sitio que va en teal y no en navy,
+     y por eso resalta: el mockup lo usa como el punto de color de la barra.
+     Va en teal-800 porque es el primer escalon que aguanta texto encima. */
+  --color-cta: var(--color-teal-800);
+
+  /* DECISION DEL 12-AGO: el hover de TODOS los CTA es el teal de marca.
+     Antes cada boton oscurecia su propio color y el gesto no se leia como
+     marca. Ahora todos aclaran al mismo teal y la tinta se voltea a navy, que
+     es lo unico que mantiene el 4.5:1 encima de ese tono. El par se verifica
+     en `npm run contraste`. */
+  --color-cta-hover: var(--color-teal-550);
+  --color-cta-hover-ink: var(--color-navy-900);
+
+  /* El hover de los links de texto, que ya no llevan subrayado.
+     No puede ser el teal de marca: sobre blanco da 2.14:1.
+
+     Es teal-900 y no teal-800 por un pelo medido, no por gusto: teal-800 da
+     4.93:1 sobre la tarjeta blanca pero 4.49:1 sobre el gris del fondo de
+     pagina, y ahi viven los links del home. Un solo escalon mas abajo pasa en
+     los dos lugares. Lo cacho `npm run contraste`, no el ojo. */
+  --color-link-hover: var(--color-teal-900);
+
+  /* El borde de la tarjeta cuando el mouse esta encima. Un borde es indicador
+     de estado, asi que la vara no es 4.5:1 sino 3:1 contra lo que tiene a cada
+     lado: el blanco de la tarjeta por dentro y el gris de la pagina por fuera.
+
+     Es teal-700 y no el teal de marca porque el de marca da 2.14:1 y 1.95:1, y
+     el borde de hover practicamente no se veria. teal-700 da 4.15 y 3.78. */
+  --color-border-hover: var(--color-teal-700);
+  /* Su DoctorCard pinta las iniciales en teal-700 sobre teal-100, y eso da
+     3.74:1. La etiqueta de especialidad en teal-700 sobre blanco da 4.15:1.
+     Ninguna de las dos llega a AA, asi que la tinta sobre superficie teal
+     tambien es navy. Es el mismo criterio que ya elegimos para las acciones,
+     y sigue sin inventar tokens: navy-900 es de ellos. */
+  --color-accent-ink: var(--color-navy-900);
+
+  /* El icono de las tarjetas informativas, desde el 13-ago. Iban en navy, o
+     sea del mismo color que el texto que tienen al lado, y no separaban nada.
+     Valeria los pidio en teal.
+
+     No es el teal de marca: sobre blanco da 1.95:1 y estos iconos son trazo de
+     1.5px, o sea lo primero que se lava. Un icono es objeto grafico, asi que la
+     vara son 3:1 (SC 1.4.11) y hay que pasarla en los DOS fondos donde vive una
+     tarjeta: el blanco de la superficie y el gris de la pagina. teal-700 da
+     4.15 y 3.78. Es el mismo escalon del borde de hover, y eso ayuda: el icono
+     y el borde teal de la tarjeta son el mismo teal, no dos parecidos. */
+  --color-icon-accent: var(--color-teal-700);
+
+  /* Texto en acento, para resaltar dentro de una frase. Hoy lo usa el contador
+     del directorio sobre lo que el usuario escribio o eligio.
+
+     Aqui la vara si son 4.5:1, porque esto es texto y no un icono. Por eso es
+     teal-900 y no el teal-700 de arriba: teal-700 da 4.15 sobre el gris de la
+     pagina y se queda corto. teal-900 da 6.07 ahi y 6.66 sobre blanco.
+     Es el mismo escalon que el hover de los links, y no por casualidad: es el
+     unico teal de la escala que aguanta texto en los dos fondos. */
+  --color-accent-text: var(--color-teal-900);
+
+  /* EXCEPCION, y esta anotada como tal a proposito. Es el azul de Fifty Doctors
+     Hospital, que no es de la paleta de DocTowers y no debe salir de su
+     seccion: lo pidio Valeria el 13-ago para que la palabra "Hospital" del
+     titulo case con el logotipo que va justo encima.
+
+     Es el unico color del sitio que no sale de la escala. Si aparece en otra
+     vista, esta mal: ahi el acento es teal.
+
+     Da 5.75:1 sobre blanco. Sobre la textura de esa seccion, con el velo al
+     50%, el peor bloque de la banda del titulo da 4.56:1. Justo, pero pasa. */
+  --color-hospital: #006ba6;
+
+  --color-text-strong: var(--color-ink-900);
+  --color-text-base: var(--color-ink-700);
+  --color-text-muted: var(--color-ink-500);
+  --color-text-invert: #ffffff;
+
+  --color-background: var(--color-gray-100);
+  --color-surface: #ffffff;
+  --color-border: var(--color-gray-200);
+
+  /* Tipografia --------------------------------------------------------------
+     tokens/typography.css. La escala esta en px, como la entregaron. */
+  /* DECISION DEL 14-AGO: Intrade vuelve a ser la display.
+     Revierte la del 13-ago, que la habia sacado por no poder escribir en
+     espanol. Aquella era la version de prueba, de 55 glifos, sin vocales
+     acentuadas y sin un solo digito; con ella el iPhone escribia "m" y "dico"
+     en Intrade y la "é" en otra tipografia, y los numeros del home salian
+     enteros en la de reserva. Valeria compro la licencia y esta version trae
+     229 glifos y cubre todo lo que el sitio muestra. La medicion completa esta
+     en el `@font-face` de arriba.
+
+     Manrope se queda de reserva inmediata en el stack y sigue siendo la del
+     cuerpo, asi que si Intrade tardara en llegar, el titulo se ve en la misma
+     tipografia que el resto y no en la del sistema. */
+  --font-display: "Intrade", "Manrope", -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Manrope", -apple-system, "Segoe UI", sans-serif;
+
+  /* DECISION DEL 17-SEP: toda la escala sube un escalon.
+     Jordy comparo contra doctowers.mx y la nuestra se veia chica. Medido en su
+     CSS de Elementor el 26-sep: el titulo del hero va en 96px (64 por debajo
+     de 1280), los titulos de seccion en 32 a 40, y los parrafos en 19 a 29.
+     Nuestro cuerpo iba en 16 y el hero en 64.
+
+     Cada token toma el escalon siguiente de tokens/typography.css (body 16 ->
+     18, body-sm 14 -> 16, h2 28 -> 36, h3 18 -> 22, label 12 -> 14). Tres
+     valores quedan fuera de la escala y salen del sitio de ellos, no del gusto:
+     el tope del hero (88, entre su 96 y su 64), el de los titulos de seccion
+     (56) y body-lg (22, su heading-md, para las frases de entrada que ellos
+     llevan en 29).
+
+     Los dos grandes siguen en `clamp` por el movil: en 390px un titulo de 88
+     parte "Encuentra a tu medico en DocTowers" en seis renglones. El minimo es
+     el de siempre subido un escalon. */
+  --text-display: clamp(40px, 10vw, 88px);
+  --text-display--line-height: 1.08;
+  --text-h1: clamp(32px, 7vw, 56px);
+  --text-h1--line-height: 1.08;
+  --text-h2: 36px;
+  --text-h2--line-height: 1.2;
+  --text-h3: 22px;
+  --text-h3--line-height: 1.2;
+  --text-body-lg: 22px;
+  --text-body-lg--line-height: 1.5;
+  --text-body: 18px;
+  --text-body--line-height: 1.5;
+  --text-body-sm: 16px;
+  --text-body-sm--line-height: 1.5;
+  --text-label: 14px;
+  --text-label--line-height: 1.5;
+
+  /* Radios, sombras y movimiento --------------------------------------------
+     tokens/effects.css. `radius-pill` es el de los botones: en este sistema
+     las acciones son pildoras, no rectangulos redondeados. */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 2px 8px rgb(0 50 69 / 0.06);
+  --shadow-card-hover: 0 8px 24px rgb(0 50 69 / 0.1);
+  --shadow-lg: 0 20px 48px rgb(0 50 69 / 0.16);
+  /* "sombra sencilla" del archivo de Figma, la unica variable publicada ahi.
+     La usan las dos pildoras: la del nav y la de especialistas del hero. */
+  --shadow-pill: 0 8px 32px rgb(0 50 69 / 0.18);
+  /* El halo teal del 13-ago, para lo clickeable cuando el mouse esta encima.
+     Es el teal de marca (#25c5bf = rgb(37 197 191)), el mismo que ya usan los
+     hover de fondo, asi que el gesto se lee como uno solo y no como dos ideas.
+
+     Misma forma que `shadow-card-hover` (0 8px 24px) a proposito: lo que cambia
+     entre reposo y hover es el color, no la geometria, y asi la tarjeta no
+     parece cambiar de tamano.
+
+     La opacidad bajo de 0.35 a 0.20 el 13-ago, por peticion de Valeria: a 0.35
+     el halo competia con el boton en vez de acompanarlo, sobre todo desde que
+     el secundario dejo de rellenarse y quedo casi blanco. Se toca solo el
+     color, no la geometria, por la misma razon de arriba. */
+  --shadow-teal: 0 8px 24px rgb(37 197 191 / 0.2);
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+
+  /* ───────────────────────────────────────────────────────────────────────────
+     PUENTE 21ST / SHADCN — alias, no colores nuevos.
+     Un componente de 21st pegado tal cual hereda esta paleta sin tocarle una
+     clase. Si pide un color que no se resuelve con los de arriba, eso se decide
+     en el design system, no se parcha aqui.
+     ─────────────────────────────────────────────────────────────────────── */
+  --color-foreground: var(--color-text-base);
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-text-strong);
+  --color-popover: var(--color-surface);
+  --color-popover-foreground: var(--color-text-strong);
+  --color-primary-foreground: var(--color-text-invert);
+  --color-secondary: var(--color-surface);
+  --color-secondary-foreground: var(--color-primary);
+  --color-muted: var(--color-background);
+  --color-muted-foreground: var(--color-text-muted);
+  --color-accent-foreground: var(--color-accent-ink);
+  --color-input: var(--color-border);
+  --color-ring: var(--color-primary);
+  --color-destructive: #b3261e;
+  --color-destructive-foreground: var(--color-text-invert);
+  --radius: var(--radius-md);
+}
+
+@layer utilities {
+  /* ───────────────────────────────────────────────────────────────────────────
+     SELECT DE ESPECIALIDAD — la lista desplegada, con el estilo del sitio.
+
+     El campo cerrado siempre estuvo adaptado. Lo que abria el sistema operativo
+     era el popup, que se dibuja fuera del documento y por eso ignoraba todo el
+     design system. `appearance: base-select` se lo quita al navegador y deja
+     estilar la lista y cada opcion como cualquier otro elemento.
+
+     Sigue siendo un `<select>` de verdad, y eso es el punto: conserva el
+     type-ahead (escribir "ped" salta a Pediatria, que con 30 especialidades es
+     como se usa esto), el teclado completo y los lectores de pantalla. Todo eso
+     es lo que se pierde al armar un dropdown a mano.
+
+     Va dentro de `@supports`, asi que es mejora progresiva: el navegador que no
+     lo entiende ignora el bloque entero y muestra el `select` de siempre, que
+     funciona igual. Hoy lo soportan Chrome y Edge 135+, y Safari 27+. Firefox
+     todavia no, y ahi se vera como antes.
+     ─────────────────────────────────────────────────────────────────────── */
+
+  /* Fuera de `@supports` para que el campo cerrado se vea igual en todos lados.
+     Sustituye al `appearance-none` de Tailwind, que peleaba con la linea de
+     abajo por ser los dos utilidades de una sola clase. */
+  .select-ds {
+    appearance: none;
+    /* Un `select` no es `<button>`, asi que la regla del `@layer base` no lo
+       alcanza. Y este se ve como boton, con su pildora y su chevron, asi que
+       tiene que comportarse como uno al pasar el mouse. */
+    cursor: pointer;
+  }
+
+  @supports (appearance: base-select) {
+    .select-ds,
+    .select-ds::picker(select) {
+      appearance: base-select;
+    }
+
+    /* El campo. El borde de hover es el mismo teal de la tarjeta, y el de
+       abierto es el navy del foco, para que abrir se lea distinto de apuntar. */
+    .select-ds:hover {
+      border-color: var(--color-border-hover);
+    }
+    .select-ds:open {
+      border-color: var(--color-primary);
+    }
+
+    /* La flecha que el navegador pone sola. Se apaga: ya tenemos la de
+       Heroicons encima, y asi el chevron del select es el mismo que el del nav
+       y el de la paginacion. */
+    .select-ds::picker-icon {
+      display: none;
+    }
+
+    /* La lista. `anchor-size` la amarra al ancho del campo: sin eso se encoge
+       al ancho de la opcion mas larga y queda descuadrada debajo. */
+    .select-ds::picker(select) {
+      min-width: anchor-size(width);
+      max-height: 22rem;
+      overflow-y: auto;
+      /* Los espaciados de este bloque van en px porque la escala del design
+         system todavia no esta en el proyecto. Cuando se baje, estos cuatro
+         valores pasan a `space-2` y `space-3`. Ver design-system/espaciado.md. */
+      padding: 8px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-lg);
+      /* `allow-discrete` es lo que permite animar la entrada de algo que pasa
+         de `display: none` a visible. Sin eso el popup aparece de golpe. */
+      opacity: 0;
+      translate: 0 -4px;
+      transition:
+        opacity var(--duration-fast) var(--ease-standard),
+        translate var(--duration-fast) var(--ease-standard),
+        overlay var(--duration-fast) allow-discrete,
+        display var(--duration-fast) allow-discrete;
+    }
+    .select-ds:open::picker(select) {
+      opacity: 1;
+      translate: 0 0;
+    }
+    @starting-style {
+      .select-ds:open::picker(select) {
+        opacity: 0;
+        translate: 0 -4px;
+      }
+    }
+
+    .select-ds option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-base);
+      font-size: var(--text-body);
+      line-height: 1.5;
+    }
+
+    /* Teal claro con tinta navy: 12.26:1, el mismo par que ya usan las
+       iniciales del avatar y que `npm run contraste` vigila. */
+    .select-ds option:hover,
+    .select-ds option:focus {
+      background: var(--color-accent-soft);
+      color: var(--color-accent-ink);
+      outline: none;
+    }
+
+    .select-ds option:checked {
+      font-weight: 600;
+      color: var(--color-text-strong);
+    }
+
+    /* La palomita de la opcion elegida. Ocupa su lugar siempre, tambien cuando
+       esta vacia, para que el texto de todas las opciones arranque en la misma
+       vertical y la lista no baile al cambiar de seleccion. */
+    .select-ds option::checkmark {
+      content: "";
+      width: 1rem;
+      flex-shrink: 0;
+      color: var(--color-primary);
+    }
+  }
+
+  /* El chevron gira al abrir. Vive fuera del `select`, asi que se alcanza desde
+     el envoltorio con `:has()`. En un navegador sin soporte, `:open` nunca se
+     cumple y el chevron simplemente no gira. */
+  .grupo-select:has(.select-ds:open) .chevron-select {
+    rotate: 180deg;
+  }
+
+  /* ───────────────────────────────────────────────────────────────────────────
+     ANIMACIONES DE ENTRADA. Las dos viven dentro de
+     `prefers-reduced-motion: no-preference`, y eso no es un detalle: significa
+     que a quien pidio menos movimiento no le aplica NINGUNA de estas reglas,
+     asi que el contenido nace visible y quieto. Envolver al reves (apagar
+     despues) dejaria el texto invisible un instante antes de corregirse.
+     ─────────────────────────────────────────────────────────────────────── */
+
+  /* 1. Aparicion al hacer scroll. El estado escondido vive en CSS y el visible
+        lo enciende `data-visible`, que pone el observador desde React. */
+  @media (prefers-reduced-motion: no-preference) {
+    .revelar {
+      opacity: 0;
+      translate: 0 16px;
+      transition:
+        opacity 600ms var(--ease-standard),
+        translate 600ms var(--ease-standard);
+    }
+
+    .revelar[data-visible="true"] {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  /* 2. Entrada del hero al cargar. Va en `animation` y no en `transition`
+        porque no responde a un cambio de estado: ocurre sola al montar.
+
+        `both` como fill mode es lo que la deja escondida ANTES de su retraso;
+        sin eso, los tres elementos parpadearian visibles y luego saltarian a
+        su posicion inicial. */
+  @media (prefers-reduced-motion: no-preference) {
+    .entra {
+      animation: entrar 700ms var(--ease-standard) both;
+    }
+    /* Escalonado corto. Mas de 150ms entre uno y otro y deja de leerse como un
+       gesto para leerse como que el sitio va lento. */
+    .entra-2 {
+      animation-delay: 130ms;
+    }
+    .entra-3 {
+      animation-delay: 260ms;
+    }
+  }
+
+  @keyframes entrar {
+    from {
+      opacity: 0;
+      translate: 0 12px;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  /* `.velo-consultorios` se borro el 14-ago. Esa seccion dejo de ser una foto a
+     todo lo ancho con el texto encima en blanco y paso a dos mitades, con el
+     texto sobre blanco. Sin texto sobre la foto, no hay nada que proteger y el
+     velo sobraba. Un velo que no cubre a nadie solo apaga la imagen. */
+
+  /* El velo del hospital. Este es blanco y no navy, porque el fondo que trae
+     Valeria ya es claro y lo que hay que hacer no es apagarlo sino calmarlo.
+
+     La razon es el grano: la textura es ruido de un pixel, casi mitad negro y
+     mitad blanco. Medido pixel por pixel hay negros puros, pero eso no es lo
+     que ve el ojo; el ojo integra. Asi que se midio por bloques de 8x8, que es
+     mas o menos el grosor del trazo de la tipografia, sobre la imagen ya
+     reescalada a los 1600 que se publican.
+
+     Los bloques mas oscuros de la imagen bajan hasta L=0.000, pero estan todos
+     en x 0.68-0.72 y 0.59-0.85: son las ventanas del edificio, y encima de esas
+     no hay texto sino tarjetas, que son blancas y opacas. En la banda donde si
+     vive el titulo el peor bloque da L=0.567.
+
+     Con 50% de blanco encima, ese peor caso deja el azul del hospital en
+     4.56:1. Es lo justo para el 4.5 que el proyecto exige, y por eso el numero
+     es 50 y no 45, que era el valor del 13-ago temprano: entonces el texto mas
+     claro era ink-700 y aguantaba menos velo. Ese parrafo ya no existe y ahora
+     el que manda es el azul, que es mas claro.
+
+     Va en degradado y se apaga antes del 72%, donde empieza el edificio: lavar
+     la foto entera para proteger un texto que vive a la izquierda seria pagar
+     de mas. En movil el edificio ni se ve, asi que ahi va parejo. */
+  .velo-hospital {
+    background-color: rgb(255 255 255 / 0.5);
+  }
+
+  @media (min-width: 640px) {
+    .velo-hospital {
+      background-color: transparent;
+      background-image: linear-gradient(
+        to right,
+        rgb(255 255 255 / 0.5) 0%,
+        rgb(255 255 255 / 0.5) 50%,
+        rgb(255 255 255 / 0) 72%
+      );
+    }
+  }
+
+  /* El velo de la fachada del hero, desde el 26-sep.
+
+     La fachada iluminada es clara justo detras del titulo, y con un velo
+     parejo el blanco no pasa 4.5:1 hasta el 65%, que ya apaga la foto. Asi
+     que el velo es fuerte donde vive el texto y se abre hacia abajo, donde
+     solo quedan el buscador (blanco y opaco) y el letrero de la torre.
+
+     Medido por bloques de 8x8 sobre la imagen publicada, en el peor punto de
+     la banda del titulo, a 1440, 1280, 768 y 390 de ancho: con 60% el peor
+     caso da 4.49:1 y no alcanza; con 62% da 4.7:1 o mas en los cuatro. Por
+     eso 62 y no 60. */
+  .velo-fachada {
+    background-image: linear-gradient(
+      to bottom,
+      rgb(0 50 69 / 0.62) 0%,
+      rgb(0 50 69 / 0.62) 62%,
+      rgb(0 50 69 / 0.15) 100%
+    );
+  }
+
+  /* El degradado del hero, copiado de tokens/colors.css (--gradient-hero).
+     Va como utilidad y no como token de color porque Tailwind no genera
+     utilidades a partir de un gradiente. */
+  .fondo-hero {
+    background-image: radial-gradient(
+      120% 140% at 8% 30%,
+      var(--color-seafoam-200) 0%,
+      var(--color-seafoam-300) 22%,
+      var(--color-navy-700) 55%,
+      var(--color-teal-600) 72%,
+      var(--color-navy-900) 100%
+    );
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-base);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Tailwind v4 quito el `cursor: pointer` que su preflight ponia en los
+     botones: ahora nacen con `cursor: default` y el puntero no cambia al pasar
+     encima. No es cosa de un boton, es de todos los del sitio (paginacion,
+     buscador, `select`, limpiar), asi que se arregla una vez aqui.
+
+     `:not(:disabled)` porque un boton apagado ya declara su propio cursor y no
+     debe invitar a nada. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
+  /* El foco por teclado tiene que verse de verdad, no ser un halo apenas
+     perceptible. Es requisito del design system, no un detalle. */
+  :focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

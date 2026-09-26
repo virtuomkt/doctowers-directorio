@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Directorio Web" description="DocTowers medical directory home: hero search, trust strip, doctor listing grid" -->
+<helmet><script src="./ds-base.js"></script></helmet>
+<div style="font-family:var(--font-body);color:var(--color-text-primary)">
+<div style="background:var(--gradient-hero);background-image:var(--gradient-hero),url(../../assets/images/hero-background.png);background-size:cover;background-blend-mode:soft-light;position:relative;overflow:hidden">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:28px 64px">
+<div style="display:flex;align-items:center;gap:16px">
+<img src="../../assets/logos/doctowers-logo-white-teal.svg" style="height:24px">
+<div style="width:1px;height:20px;background:rgba(255,255,255,.4)"></div>
+<span style="font-size:14px;color:#fff">Boca del Río</span>
+</div>
+<div style="display:flex;gap:12px">
+<x-import component-from-global-scope="DocTowersDesignSystem_80a2e3.Button" variant="dark" size="sm">Consultorios disponibles</x-import>
+<x-import component-from-global-scope="DocTowersDesignSystem_80a2e3.Button" variant="primary" size="sm">Directorio ›</x-import>
+</div>
+</div>
+<div style="padding:40px 0 90px;display:flex;flex-direction:column;align-items:center;gap:36px">
+<h1 style="font-family:var(--font-display);font-size:56px;color:#fff;text-align:center;margin:0;line-height:1.1;max-width:820px">Encuentra a tu médico en DocTowers</h1>
+<x-import component-from-global-scope="DocTowersDesignSystem_80a2e3.SearchInput" value="{{ query }}" on-change="{{ setQuery }}" on-submit="{{ submit }}" hint-size="560px,64px"></x-import>
+</div>
+<div style="display:flex;justify-content:center;transform:translateY(-28px)">
+<div style="background:#fff;border-radius:var(--radius-pill);box-shadow:var(--shadow-lg);padding:10px 24px 10px 10px;display:flex;align-items:center;gap:14px">
+<x-import component-from-global-scope="DocTowersDesignSystem_80a2e3.AvatarGroup" avatars="{{ trustAvatars }}" max="{{ 4 }}" hint-size="140px,36px"></x-import>
+<span style="font-family:var(--font-display);font-size:15px;color:var(--navy-900)">+200 especialistas confían en <b>DocTowers</b></span>
+</div>
+</div>
+</div>
+<div style="padding:70px 64px 90px;background:#fff">
+<h2 style="font-family:var(--font-display);font-size:32px;color:var(--navy-900);margin:0 0 8px">Directorio médico</h2>
+<p style="color:var(--ink-500);margin:0 0 36px">{{ resultCount }} especialistas encontrados</p>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+<sc-for list="{{ filteredDoctors }}" as="doc" hint-placeholder-count="6">
+<x-import component-from-global-scope="DocTowersDesignSystem_80a2e3.DoctorCard" name="{{ doc.name }}" specialty="{{ doc.specialty }}" office="{{ doc.office }}" available="{{ doc.available }}" avatar-align="{{ avatarAlign }}" hint-size="100%,110px"></x-import>
+</sc-for>
+</div>
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;avatarAlign&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;top&quot;,&quot;center&quot;],&quot;default&quot;:&quot;top&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Doctor cards&quot;}}">
+class Component extends DCLogic {
+state = { query: "", submitted: "" };
+doctors = [
+{name:"Dra. Ana Ruiz",specialty:"Cardiología",office:"Torre A · Piso 4",available:true},
+{name:"Dr. Luis Vega",specialty:"Traumatología",office:"Torre A · Piso 7",available:false},
+{name:"Dra. Sofía León",specialty:"Pediatría",office:"Torre B · Piso 2",available:true},
+{name:"Dr. Marco Díaz",specialty:"Dermatología",office:"Torre A · Piso 5",available:true},
+{name:"Dra. Paula Ortiz",specialty:"Ginecología",office:"Torre B · Piso 3",available:true},
+{name:"Dr. Iván Cruz",specialty:"Oftalmología",office:"Torre A · Piso 6",available:false},
+];
+renderVals() {
+const q = this.state.submitted.toLowerCase();
+const filteredDoctors = this.doctors.filter(d => (d.name + d.specialty).toLowerCase().includes(q));
+return {
+query: this.state.query,
+setQuery: v => this.setState({ query: v }),
+submit: v => this.setState({ submitted: v || "" }),
+filteredDoctors,
+resultCount: filteredDoctors.length,
+trustAvatars: [{name:"Ana Ruiz"},{name:"Luis Vega"},{name:"Sofía León"},{name:"Marco Díaz"}],
+avatarAlign: this.props.avatarAlign ?? "top",
+};
+}
+}
+
+</script>
+</body>
+</html>
