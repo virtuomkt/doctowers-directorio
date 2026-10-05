@@ -1,1 +1,1 @@
-../../viri/reports/2026-08-03-doctowers-mvp-directorio-stack.md
+../../../Wikis/virtuo-wiki/wiki/interno/concepto-doctowers-directorio-mvp.md

@@ -8,8 +8,8 @@ Son symlinks relativos: sobreviven si mueves la carpeta, siempre que se mueva ju
 
 | Archivo | Apunta a | Qué es |
 |---|---|---|
-| `spec-mvp.md` | `viri/reports/2026-08-03-...` | **El documento base.** Alcance, stack, modelo de datos, pantallas, riesgos y el plan de 12 días. Todo lo demás sale de aquí. |
-| `decisiones-virtuo.md` | `viri/decisions/log.md` | Log de decisiones de Virtuo. La entrada del 3-ago trae el *porqué* del stack y las cuatro opciones que se evaluaron. |
+| `spec-mvp.md` | wiki compartido | **El documento base.** Alcance, stack, modelo de datos, pantallas, riesgos y el plan de 12 días. Todo lo demás sale de aquí. |
+| `decisiones-virtuo.md` | wiki compartido | Log de decisiones de Virtuo. La entrada del 3-ago trae el *porqué* del stack y las cuatro opciones que se evaluaron. |
 | `2026-07-20-junta-origen.md` | wiki compartido | La junta con Rebeca, Jordy y Valeria donde nació el proyecto. Ahí Jordy propuso WordPress y pidió que el dominio fuera fácil de transferir. |
 | `skills-y-plugins-web.md` | wiki compartido | **Catálogo de skills y plugins para trabajo web.** Qué está instalado, qué son candidatos y qué cuesta cada uno. Revisar antes de instalar nada. |
 | `voz-valeria.md` | wiki compartido | Voz interna, para redactar en nombre de Valeria. |

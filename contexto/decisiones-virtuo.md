@@ -1,1 +1,1 @@
-../../viri/decisions/log.md
+../../../Wikis/virtuo-wiki/wiki/interno/historico/viri/bitacora-de-decisiones.md
